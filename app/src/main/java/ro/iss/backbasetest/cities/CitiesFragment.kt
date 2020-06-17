@@ -209,15 +209,36 @@ class CitiesFragment : Fragment(), OnQueryTextListener {
                     override fun onItemClick(
                         item: CityModel,
                         markerTitle: String?
-                    ) {
-
-                    }
+                    ) = goToMapFragment(item, markerTitle)
 
                 }
             )
             cities_recycler_view.layoutManager = LinearLayoutManager(context)
             cities_recycler_view.adapter = citiesAdapter
         } ?: showErrorCities()
+    }
+
+    private fun goToMapFragment(
+        item: CityModel,
+        markerTitle: String?
+    ) {
+
+        item.coordinates?.latitude?.let { lat ->
+
+            item.coordinates?.longitude?.let { lon ->
+
+                fragmentCallback
+                    ?.openFragmentPage(
+                        MapFragment.newInstance(
+                            LatLng(lat, lon),
+                            markerTitle
+                        )
+                    )
+
+            } ?: incorrectCoordinates()
+
+        } ?: incorrectCoordinates()
+
     }
 
     private fun incorrectCoordinates() {
