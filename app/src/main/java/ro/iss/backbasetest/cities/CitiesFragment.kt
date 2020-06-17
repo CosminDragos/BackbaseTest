@@ -349,9 +349,7 @@ class CitiesFragment : Fragment(), OnQueryTextListener {
     override fun onQueryTextChange(newText: String?): Boolean {
         newText?.let {
             if (cities_loading_progress.visibility == GONE)
-                viewModel?.searchByPrefix(
-                    it.toLowerCase(Locale.getDefault())
-                )
+                viewModel?.searchByPrefix(it)
         }
         return true
     }

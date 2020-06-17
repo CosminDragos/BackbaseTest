@@ -30,8 +30,8 @@ On the implementation side:
 5. LiveData as the observable data holder
 6. Interface Callback for communication between Fragments and Activity
 7. On the UI part I've used mainly ConstraintLayout, FrameLayout , RecyclerView and LinearLayout as containers and TextView, AppCompatImage, ContentLoadingProgressBar as views
-8. I didn't use Navigation Component mostly because I had only two fragments and it was much more easier to handle the navigation via backstack
-9. I didn't use dependency injection because I didn't actually need it in this case. It was much more easier and relatable to the complexity of the problem to use Singleton pattern via object classes from Kotlin. In other projects, I've used Dagger as dependency injection library.
+8. I didn't use Navigation Component mostly because I had only two fragments and it was much more easier for me to handle the navigation via backstack programmatically
+9. I didn't use dependency injection, even though is recommended vs Singleton. It was much more easier and relatable to the complexity of the problem to use Singleton pattern via object classes from Kotlin. In other projects, I've used Dagger as dependency injection library. In terms of testing and not only, is recommended to use dependency injection.
 
 
 In the process of picking the right search algorithm, I've had the following options besides Binary Search:

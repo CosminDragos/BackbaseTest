@@ -42,16 +42,24 @@ object SearchUtils {
      * I chose to implement it in an iterative way to keep the spatial complexity
      * in the worst case scenario at O(1).
      *
-     * @param prefix the filtering element
+     * @param prefixCaseInsensitive the filtering element
      * @return a list of the cities filtered
      */
     @Synchronized
-    fun binarySearch(prefix: String): ArrayList<CityModel> {
+    fun binarySearch(
+        prefixCaseInsensitive: String
+    ): ArrayList<CityModel> {
 
         citiesList?.let {
 
-            if (prefix.isBlank())
+            if (prefixCaseInsensitive.isBlank())
                 return it
+
+            val prefix =
+                prefixCaseInsensitive
+                    .toLowerCase(
+                        Locale.getDefault()
+                    )
 
             // low and high indexes
             var lowIndexLimit = 0
