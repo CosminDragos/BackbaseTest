@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cities_fragment_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".cities.CitiesFragment">
+
+    <include
+        android:id="@+id/cities_loading_progress"
+        tools:visibility="gone"
+        app:layout_constraintTop_toBottomOf="parent"
+        layout="@layout/loading_progress_layout" />
+
+    <include
+        android:id="@+id/cities_error_container"
+        tools:visibility="gone"
+        layout="@layout/general_error_layout" />
+
+    <include
+        android:id="@+id/cities_empty_container"
+        android:visibility="gone"
+        layout="@layout/empty_layout" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/cities_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/grey_background"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
