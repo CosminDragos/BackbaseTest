@@ -2,11 +2,8 @@ package ro.iss.backbasetest
 
 import android.app.Activity
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import androidx.appcompat.widget.SearchView
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -17,6 +14,10 @@ import com.google.android.gms.maps.model.MarkerOptions
 import ro.iss.backbasetest.utils.Constants.COORDINATES_KEY
 import ro.iss.backbasetest.utils.Constants.MARKER_KEY
 
+/**
+ * The fragment needed for showing the map of a specific coordinates location
+ *
+ */
 class MapFragment: SupportMapFragment(), OnMapReadyCallback {
 
     private var mMap: GoogleMap? = null
@@ -82,6 +83,7 @@ class MapFragment: SupportMapFragment(), OnMapReadyCallback {
             googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
         }
     }
+
 
     private fun hideKeyboard(view: View) {
         val inputMethod =

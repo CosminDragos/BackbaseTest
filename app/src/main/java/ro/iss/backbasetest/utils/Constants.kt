@@ -1,5 +1,9 @@
 package ro.iss.backbasetest.utils
 
+/**
+ * Class used for constant value (static final)
+ *
+ */
 object Constants {
 
     const val EMPTY_STRING = ""

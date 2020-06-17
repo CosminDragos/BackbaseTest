@@ -17,13 +17,29 @@ import ro.iss.backbasetest.utils.Constants.FIRST_ELEMENT_INDEX
 import ro.iss.backbasetest.utils.Constants.PADDING_VALUE_24DP
 import ro.iss.backbasetest.utils.Constants.PADDING_VALUE_12DP
 
-
+/**
+ * Class used for inflating graphic cells and binding data elements on them.
+ *
+ * @property context Activity Context
+ * @property citiesList elements list to bind data from
+ * @property itemClickListener callback listener for onClick Item Events
+ */
 class CitiesAdapter(
     private val context: Context?,
     private var citiesList: ArrayList<CityModel>,
     private val itemClickListener: OnCityItemClickListener
 ): RecyclerView.Adapter<CityViewHolder>() {
 
+    /**
+     * Called when RecyclerView needs a new CityViewHolder of the given type to represent
+     * the CityModel item.
+     * The CityViewHolder will be used to display cities using onBindViewHolder.
+     *
+     * @param parent The ViewGroup into which the new View will be added after it is bound to
+     * an adapter position.
+     * @param viewType The view type of the new View.
+     * @return A new CityViewHolder that holds a View of the given view type.
+     */
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -37,38 +53,39 @@ class CitiesAdapter(
         )
     }
 
+    /**
+     * Returns the total number of cities in the list set held by the adapter.
+     *
+     * @return The total number of cities in this adapter.
+     */
     override fun getItemCount(): Int {
         return citiesList.size
     }
 
+    /**
+     * Called by RecyclerView to bind the data at the specified position. This method should
+     * update the contents of the CityViewHolder to reflect the item at the given
+     * position.
+     *
+     * @param holder The ViewHolder which should be updated to represent the contents of the
+     * item at the given position in the data set.
+     * @param position The position of the item within the adapter's data set.
+     */
     override fun onBindViewHolder(holder: CityViewHolder, position: Int) {
         holder.bind(citiesList[position], position)
     }
 
+    /**
+     * Method used to update items list after search filtering.
+     * This method is synchronized to avoid having different coroutines operating
+     * with cities list data at the same time.
+     *
+     * @param citiesList filtered cities list
+     */
     @Synchronized
     fun updateCitiesList(citiesList: ArrayList<CityModel>) {
-
         this.citiesList = citiesList
         notifyDataSetChanged()
-
-//        val task: RunnableFuture<Void?> =
-//            FutureTask(
-//                Runnable {
-//                    this.citiesList = citiesList
-//                    notifyDataSetChanged()
-//                },
-//                null
-//            )
-//
-//        (context as? Activity)?.runOnUiThread(task)
-//
-//        try {
-//            // this will suspend coroutine that called the method until UI updates are done
-//            task.get()
-//        } catch (e: Exception) {
-//            e.printStackTrace()
-//        }
-
     }
 
     inner class CityViewHolder(
@@ -85,6 +102,12 @@ class CitiesAdapter(
             }
         }
 
+        /**
+         * Method used to bind data from CityModel to CityViewHolder associated views.
+         *
+         * @param item data object to map on graphic elements
+         * @param position position of item in list
+         */
         fun bind(item: CityModel, position: Int) {
             setPadding(position)
             setTitleValue(item)
@@ -118,6 +141,12 @@ class CitiesAdapter(
             }
         }
 
+        /**
+         * Method used to convert dp to px.
+         *
+         * @param dp value to convert
+         * @return converted value
+         */
         private fun convertDpToPx(dp: Float): Float {
             return TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
@@ -126,6 +155,11 @@ class CitiesAdapter(
             )
         }
 
+        /**
+         * Method used to set title in the associated view element.
+         *
+         * @param item data object to map on the graphic element
+         */
         private fun setTitleValue(item: CityModel) {
 
             val city = item.name ?: EMPTY_STRING
@@ -142,6 +176,11 @@ class CitiesAdapter(
 
         }
 
+        /**
+         * Method used to set subtitle in the associated view element.
+         *
+         * @param item data object to map on the graphic element
+         */
         private fun setSubTitleValue(item: CityModel) {
 
             val longitude =
@@ -168,6 +207,12 @@ class CitiesAdapter(
 
         }
 
+
+        /**
+         * Method used to set click listener on the associated view element.
+         *
+         * @param item data object to that was mapped on the graphic element
+         */
         private fun setOnItemListeners(item: CityModel) {
             cityView.setOnClickListener {
                 itemClickListener.onItemClick(
@@ -179,6 +224,10 @@ class CitiesAdapter(
 
     }
 
+    /**
+     * Callback Interface Listener
+     *
+     */
     interface OnCityItemClickListener {
         fun onItemClick(item: CityModel, markerTitle: String?)
     }
